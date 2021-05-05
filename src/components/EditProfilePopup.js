@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import FormInput from './FormInput';
@@ -18,46 +18,49 @@ function EditProfilePopup({
   submitting = false,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
-  const [userName, setUserName] = useState(currentUser.name);
-  const [userAbout, setUserAbout] = useState(currentUser.about);
-  const [nameValid, setNameValid] = useState(true);
-  const [aboutValid, setAboutValid] = useState(true);
+  const defaultFormState = useMemo(
+    () => ({
+      name: {
+        value: currentUser.name,
+        valid: true,
+      },
+      about: {
+        value: currentUser.about,
+        valid: true,
+      },
+    }),
+    [currentUser]
+  );
+  const [form, setForm] = useState(defaultFormState);
   const [formValid, setFormValid] = useState(true);
 
-  const onChangeUserNameInput = (value, valid) => {
-    setNameValid(valid);
-    setUserName(value);
-  };
-
-  const onChangeUserAboutInput = (value, valid) => {
-    setAboutValid(valid);
-    setUserAbout(value);
+  const handleInput = (value, name, valid) => {
+    setForm({
+      ...form,
+      [name]: { value, valid },
+    });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     onUpdateUser({
-      name: userName,
-      about: userAbout,
+      name: form.name.value,
+      about: form.about.value,
     });
   };
 
   useEffect(() => {
-    if (nameValid && aboutValid) {
+    if (form.name.valid && form.about.valid) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [nameValid, aboutValid]);
+  }, [form]);
 
   useEffect(() => {
-    setUserName(currentUser.name);
-    setUserAbout(currentUser.about);
-
-    setNameValid(!!currentUser.name);
-    setAboutValid(!!currentUser.about);
-  }, [currentUser, open]);
+    setForm(defaultFormState);
+  }, [currentUser, open, setForm, defaultFormState]);
 
   return (
     <PopupWithForm
@@ -73,23 +76,23 @@ function EditProfilePopup({
         type="text"
         name="name"
         id="name-input"
-        className="form__input form__input_type_name"
+        className="form__input form__input_type_name form__input_style_light"
         required
         minLength="2"
         maxLength="40"
-        value={userName}
-        onChange={onChangeUserNameInput}
+        value={form.name.value}
+        onChange={handleInput}
       />
       <FormInput
         type="text"
         name="about"
         id="about-input"
-        className="form__input form__input_type_about"
+        className="form__input form__input_type_about form__input_style_light"
         required
         minLength="2"
         maxLength="200"
-        value={userAbout}
-        onChange={onChangeUserAboutInput}
+        value={form.about.value}
+        onChange={handleInput}
       />
     </PopupWithForm>
   );

@@ -27,7 +27,9 @@ function PopupWithForm(props) {
     buttonText = 'Сохранить',
   } = props;
   const popupClasses = `popup popup_type_${name} ${isOpen && 'popup_opened'}`;
-  const buttonClasses = `form__save ${disabled && 'form__save_disabled'}`;
+  const buttonClasses = `form__save form__save_style_light ${
+    disabled && 'form__save_disabled'
+  }`;
 
   return (
     <div className={popupClasses}>

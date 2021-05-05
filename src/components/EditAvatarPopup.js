@@ -40,7 +40,7 @@ function EditAvatarPopup({
           type="url"
           name="avatar"
           id="avatar-input"
-          className="form__input form__input_type_link"
+          className="form__input form__input_type_link form__input_style_light"
           required
         />
         <span className="form__input-error avatar-input-error" />

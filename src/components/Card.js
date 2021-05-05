@@ -70,10 +70,11 @@ function LikeButton({ onClickLike, isLiked = false, count = 0 }) {
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const [isLikeFetching, setIsLikeFetching] = useState(false);
-  const { _id: currentUserId } = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
+  const { _id: userId } = currentUser;
 
-  const isOwner = card.owner._id === currentUserId;
-  const isLiked = card.likes.some((user) => user._id === currentUserId);
+  const isOwner = card.owner._id === userId;
+  const isLiked = card.likes.some((user) => user._id === userId);
 
   const handleCardClick = () => {
     onCardClick(card);

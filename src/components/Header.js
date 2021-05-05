@@ -48,7 +48,6 @@ function HeaderLink({ path }) {
 function Header() {
   const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <header className="header container">
