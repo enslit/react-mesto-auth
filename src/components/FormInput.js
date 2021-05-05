@@ -16,8 +16,8 @@ function FormInput({ onChange, value, ...props }) {
   };
 
   const handleChange = (evt) => {
-    const { value, validity } = evt.target;
-    onChange(value, validity.valid);
+    const { value: inputValue, validity } = evt.target;
+    onChange(inputValue, validity.valid);
   };
 
   useEffect(() => {
@@ -36,6 +36,7 @@ function FormInput({ onChange, value, ...props }) {
     <label className="form__field">
       <input
         {...props}
+        value={value}
         ref={inputRef}
         onChange={handleChange}
         onBlur={handleBlur}

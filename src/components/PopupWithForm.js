@@ -1,14 +1,14 @@
 import React from 'react';
 import Loader from './Loader';
-import { string, func, bool, element } from 'prop-types';
+import { string, func, bool, node } from 'prop-types';
 
 PopupWithForm.propTypes = {
   title: string.isRequired,
   name: string.isRequired,
-  isOpen: func.isRequired,
+  isOpen: bool.isRequired,
   onClose: func.isRequired,
   onSubmit: func.isRequired,
-  children: element.isRequired,
+  children: node.isRequired,
   submitting: bool,
   disabled: bool,
   buttonText: string,

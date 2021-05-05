@@ -17,7 +17,7 @@ function EditProfilePopup({
   open = false,
   submitting = false,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const [userName, setUserName] = useState(currentUser.name);
   const [userAbout, setUserAbout] = useState(currentUser.about);
   const [nameValid, setNameValid] = useState(true);
