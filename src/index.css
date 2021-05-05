@@ -4,6 +4,7 @@
 
 /* Blocks */
 @import "./blocks/page/page.css";
+@import "./blocks/page/_loading/page_loading.css";
 @import "./blocks/content/content.css";
 @import "./blocks/container/container.css";
 
