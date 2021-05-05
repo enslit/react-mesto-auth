@@ -41,7 +41,8 @@ Main.propTypes = {
 };
 
 function Main(props) {
-  const { name, about, avatar } = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
+  const { name, about, avatar } = currentUser;
   const {
     cards,
     onCardLike,

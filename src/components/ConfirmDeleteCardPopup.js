@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { string, func, bool } from 'prop-types';
 
 ConfirmDeleteCardPopup.propTypes = {
-  cardId: string.isRequired,
+  cardId: string,
   onClose: func.isRequired,
   onDeleteCard: func.isRequired,
   submitting: bool,
