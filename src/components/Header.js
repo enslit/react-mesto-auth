@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import logo from '../images/logo.svg';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import { object, string } from 'prop-types';
@@ -13,14 +13,33 @@ HeaderLink.propTypes = {
 };
 
 function UserInfo({ user }) {
-  return <div>{user.name}</div>;
+  const history = useHistory();
+  const { setIsloggedIn } = useContext(CurrentUserContext);
+
+  const logout = () => {
+    localStorage.removeItem('jwt');
+    setIsloggedIn(false);
+    history.push('/sign-in');
+  };
+
+  return (
+    <div>
+      <span>{user.name}</span>
+      <button onClick={logout} className="link header__link">
+        Выйти
+      </button>
+    </div>
+  );
 }
 
 function HeaderLink({ path }) {
   const isLoginPage = path === '/sign-in';
 
   return (
-    <Link to={isLoginPage ? '/sign-up' : '/sign-in'} className="header__link">
+    <Link
+      to={isLoginPage ? '/sign-up' : '/sign-in'}
+      className="link header__link"
+    >
       {isLoginPage ? 'Регистрация' : 'Войти'}
     </Link>
   );

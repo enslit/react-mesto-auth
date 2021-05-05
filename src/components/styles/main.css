@@ -1,0 +1,51 @@
+/* Blocks */
+@import "../../blocks/btn/btn.css";
+@import "../../blocks/btn/_type/btn_type_add-card.css";
+@import "../../blocks/btn/_type/btn_type_edit-profile.css";
+@import "../../blocks/btn/_type/btn_type_like.css";
+@import "../../blocks/btn/_type/btn_type_like-active.css";
+@import "../../blocks/btn/_type/btn_type_close.css";
+@import "../../blocks/btn/_type/btn_type_delete.css";
+
+@import "../../blocks/profile/profile.css";
+@import "../../blocks/profile/__avatar/profile__avatar.css";
+@import "../../blocks/profile/__avatar-wrapper/profile__avatar-wrapper.css";
+@import "../../blocks/profile/__details/profile__details.css";
+@import "../../blocks/profile/__text/profile__text.css";
+@import "../../blocks/profile/__name/profile__name.css";
+@import "../../blocks/profile/__about/profile__about.css";
+
+@import "../../blocks/cards/__list/cards__list.css";
+
+@import "../../blocks/card/card.css";
+@import "../../blocks/card/__delete/card__delete.css";
+@import "../../blocks/card/__delete/_hidden/card__delete_hidden.css";
+@import "../../blocks/card/__image/card__image.css";
+@import "../../blocks/card/__description/card__desription.css";
+@import "../../blocks/card/__title/card__title.css";
+@import "../../blocks/card/__like/card__like.css";
+@import "../../blocks/card/__like-cnt/card__like-cnt.css";
+
+@import "../../blocks/footer/footer.css";
+@import "../../blocks/footer/__copyright/footer__copyright.css";
+
+@import "../../blocks/popup/popup.css";
+@import "../../blocks/popup/_opened/popup_opened.css";
+@import "../../blocks/popup/__container/popup__container.css";
+@import "../../blocks/popup/__container/_image/popup__container_image.css";
+@import "../../blocks/popup/__image/popup__image.css";
+@import "../../blocks/popup/__sign/popup__sign.css";
+@import "../../blocks/popup/__title/popup__title.css";
+@import "../../blocks/popup/__close/popup__close.css";
+
+@import "../../blocks/form/__title/form__title.css";
+@import "../../blocks/form/__input/form__input.css";
+@import "../../blocks/form/__input/_type/form__input_type_error.css";
+@import "../../blocks/form/__input/_style/form__input_style_light.css";
+@import "../../blocks/form/__input-error/form__input-error.css";
+@import "../../blocks/form/__input-error/_visible/form__input-error_visible.css";
+@import "../../blocks/form/__field/form__field.css";
+@import "../../blocks/form/__save/form__save.css";
+@import "../../blocks/form/__save/_style/form__save_style_light.css";
+@import "../../blocks/form/__save/_disabled/form__save_disabled.css";
+@import "../../blocks/form/__error/form__error.css";

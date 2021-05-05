@@ -16,8 +16,8 @@ function FormInput({ onChange, value, ...props }) {
   };
 
   const handleChange = (evt) => {
-    const { value: inputValue, validity } = evt.target;
-    onChange(inputValue, validity.valid);
+    const { value: inputValue, name: inputName, validity } = evt.target;
+    onChange(inputValue, inputName, validity.valid);
   };
 
   useEffect(() => {
