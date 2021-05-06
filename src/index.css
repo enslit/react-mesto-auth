@@ -16,3 +16,11 @@
 
 @import "./blocks/loader/loader.css";
 @import "./blocks/loader/__svg/loader__svg.css";
+
+@import "./blocks/popup/popup.css";
+@import "./blocks/popup/_opened/popup_opened.css";
+@import "./blocks/popup/__container/popup__container.css";
+@import "./blocks/popup/__title/popup__title.css";
+@import "blocks/popup/__title/_place/popup__title_place_register.css";
+@import "./blocks/popup/__close/popup__close.css";
+@import "./blocks/popup/__icon/popup__icon.css";

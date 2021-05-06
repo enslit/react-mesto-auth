@@ -7,12 +7,15 @@ import MainContainer from './MainContainer';
 import Register from './Register';
 import ProtectedRoute from '../hoc/ProtectedRoute';
 import Loader from './Loader';
+import PopupRegisterInfo from './PopupRegisterInfo';
 
 function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState(
     useContext(CurrentUserContext)
   );
+  const [showRegisterInfo, setShowRegisterInfo] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
   const [isLoggedIn, setIsloggedIn] = useState(false);
   const [appReady, setAppReady] = useState(false);
 
@@ -23,9 +26,17 @@ function App() {
   };
 
   const handleRegisterSubmit = (form) => {
-    localStorage.setItem('jwt', JSON.stringify(form));
-    setIsloggedIn(true);
-    history.push('/');
+    if (form.username === 'admin') {
+      localStorage.setItem('jwt', JSON.stringify(form));
+      setIsloggedIn(true);
+      history.push('/');
+      setRegisterSuccess(true);
+    }
+    setShowRegisterInfo(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowRegisterInfo(false);
   };
 
   useEffect(() => {
@@ -65,6 +76,11 @@ function App() {
             isloggedIn={isLoggedIn}
           />
         </Switch>
+        <PopupRegisterInfo
+          open={showRegisterInfo}
+          success={registerSuccess}
+          onClose={handleClosePopup}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
