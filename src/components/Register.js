@@ -10,7 +10,7 @@ Register.propTypes = {
 
 function Register({ onSubmit }) {
   const [form, setForm] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -39,15 +39,15 @@ function Register({ onSubmit }) {
           <h1 className="form__title">Регистрация</h1>
           <FormInput
             type="email"
-            name="username"
+            name="email"
             placeholder="Email"
             id="username-input"
-            className="form__input form__input_type_username form__input_style_dark"
+            className="form__input form__input_type_email form__input_style_dark"
             required
             minLength="2"
             maxLength="40"
             onChange={handleInput}
-            value={form.username}
+            value={form.email}
           />
           <FormInput
             type="password"
