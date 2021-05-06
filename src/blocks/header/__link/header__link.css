@@ -6,3 +6,11 @@
     text-align: right;
     margin-left: 25px;
 }
+
+@media  screen and (max-width: 441px) {
+    .header__link {
+        max-width: 100px;
+        text-align: center;
+        margin: 18px auto 0;
+    }
+}

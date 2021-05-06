@@ -3,9 +3,9 @@
     width: 20px;
     border: none;
     outline: none;
-    background-image: url(../../../images/like.svg);
+    background-image: url(../../../assets/icons/like.svg);
 }
 
 .btn_type_like:active {
-    background-image: url(../../../images/like_active.svg);
+    background-image: url(../../../assets/icons/like_active.svg);
 }
