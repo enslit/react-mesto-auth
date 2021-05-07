@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import successIcon from '../assets/icons/success-icon.svg';
 import failIcon from '../assets/icons/fail-icon.svg';
 
@@ -7,9 +7,10 @@ PopupRegisterInfo.propTypes = {
   open: bool,
   onClose: func,
   success: bool,
+  title: string,
 };
 
-function PopupRegisterInfo({ open, onClose, success }) {
+function PopupRegisterInfo({ open, onClose, success, title }) {
   return (
     <div className={`popup ${open ? 'popup_opened' : ''}`}>
       <div className="popup__container">
@@ -26,11 +27,7 @@ function PopupRegisterInfo({ open, onClose, success }) {
             backgroundImage: `url(${success ? successIcon : failIcon})`,
           }}
         />
-        <h2 className="popup__title popup__title_place_register">
-          {success
-            ? 'Вы успешно зарегистрировались!'
-            : 'Что-то пошло не так! Попробуйте ещё раз.'}
-        </h2>
+        <h2 className="popup__title popup__title_place_register">{title}</h2>
       </div>
     </div>
   );

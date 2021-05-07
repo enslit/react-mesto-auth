@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import FormInput from './FormInput';
 import { Link } from 'react-router-dom';
 import './styles/auth.css';
-import { func } from 'prop-types';
+import { bool, func } from 'prop-types';
+import Loader from './Loader';
 
 Register.propTypes = {
   onSubmit: func,
+  fetching: bool,
 };
 
-function Register({ onSubmit }) {
+function Register({ onSubmit, fetching }) {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -68,7 +70,11 @@ function Register({ onSubmit }) {
             name="save"
             className="form__save form__save_style_dark"
           >
-            Зарегистрироваться
+            {fetching ? (
+              <Loader size={30} color="#000" />
+            ) : (
+              'Зарегистрироваться'
+            )}
           </button>
           <div className="form__after-save">
             Уже зарегистрированы?{' '}

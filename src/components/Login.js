@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { func } from 'prop-types';
+import { func, bool } from 'prop-types';
 import FormInput from './FormInput';
 import './styles/auth.css';
+import Loader from './Loader';
 
 Login.propTypes = {
   onSubmit: func,
+  fetching: bool,
 };
 
-function Login({ onSubmit }) {
+function Login({ onSubmit, fetching }) {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -67,7 +69,7 @@ function Login({ onSubmit }) {
             name="save"
             className="form__save form__save_style_dark"
           >
-            Войти
+            {fetching ? <Loader size={30} color="#000" /> : 'Войти'}
           </button>
         </div>
       </form>

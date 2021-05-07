@@ -17,10 +17,8 @@ class FetchApi {
 
     return fetch(fetchUrl, options).then((res) => {
       if (!res.ok) {
-        const error = new Error(
-          `Error code ${res.status}. Message ${res.statusText}`
-        );
-        return Promise.reject(error);
+        // const error = new Error(`Error code ${res.status}. ${res.statusText}`);
+        // return Promise.reject(error);
       }
       return res.json();
     });
@@ -29,11 +27,11 @@ class FetchApi {
 
 class AuthApi extends FetchApi {
   register(email, password) {
-    return this._fetch('/signup', 'POST', { email, password });
+    return this._fetch('signup', 'POST', { email, password });
   }
 
   auth(email, password) {
-    return this._fetch('/signin', 'POST', { email, password });
+    return this._fetch('signin', 'POST', { email, password });
   }
 
   checkToken(token) {
@@ -41,7 +39,7 @@ class AuthApi extends FetchApi {
       Authorization: `Bearer ${token}`,
     };
 
-    return this._fetch('/users/me', 'GET', null, additionalHeaders);
+    return this._fetch('users/me', 'GET', null, additionalHeaders);
   }
 }
 
@@ -84,7 +82,7 @@ export const api = new AppApi({
 });
 
 export const auth = new AuthApi({
-  baseUrl: 'https://auth.nomoreparties.co/',
+  baseUrl: 'https://auth.nomoreparties.co',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -47,7 +47,10 @@ function MainContainer() {
     api
       .updateProfile(userData)
       .then((newUserData) => {
-        setCurrentUser(newUserData);
+        setCurrentUser({
+          ...currentUser,
+          ...newUserData,
+        });
         setIsEditProfilePopupOpen(false);
       })
       .catch(logError)
@@ -59,7 +62,10 @@ function MainContainer() {
     api
       .updateAvatar(formData)
       .then((newUserData) => {
-        setCurrentUser(newUserData);
+        setCurrentUser({
+          ...currentUser,
+          ...newUserData,
+        });
         setIsEditAvatarPopupOpen(false);
       })
       .catch(logError)
@@ -116,10 +122,14 @@ function MainContainer() {
 
   useEffect(() => {
     setLoading(true);
+    console.log(currentUser);
 
     Promise.all([api.getUserInfo(), api.getCardList()])
       .then(([userData, cardList]) => {
-        setCurrentUser(userData);
+        setCurrentUser({
+          ...currentUser,
+          ...userData,
+        });
         setCards(cardList);
       })
       .catch(logError)
