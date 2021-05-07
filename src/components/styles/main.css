@@ -1,5 +1,6 @@
 /* Blocks */
 @import "../../blocks/header/__menu/header__menu.css";
+@import "../../blocks/header/__email/header__email.css";
 @import "../../blocks/btn/btn.css";
 @import "../../blocks/btn/_type/btn_type_menu.css";
 @import "../../blocks/btn/_type/btn_type_add-card.css";
