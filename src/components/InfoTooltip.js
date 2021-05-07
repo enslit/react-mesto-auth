@@ -12,7 +12,7 @@ InfoTooltip.propTypes = {
 
 function InfoTooltip({ open, onClose, success, title }) {
   return (
-    <div className={`popup ${open ? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type_tooltip ${open ? 'popup_opened' : ''}`}>
       <div className="popup__container">
         <button
           type="button"

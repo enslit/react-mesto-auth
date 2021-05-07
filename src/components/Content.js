@@ -11,7 +11,7 @@ import ConfirmDeleteCardPopup from './ConfirmDeleteCardPopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import './styles/main.css';
 
-function MainContainer() {
+function Content() {
   const [loading, setLoading] = useState(true);
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -178,4 +178,4 @@ function MainContainer() {
   );
 }
 
-export default MainContainer;
+export default Content;

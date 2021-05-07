@@ -3,7 +3,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Login from './Login';
-import MainContainer from './MainContainer';
+import Content from './Content';
 import Register from './Register';
 import ProtectedRoute from '../hoc/ProtectedRoute';
 import Loader from './Loader';
@@ -168,7 +168,7 @@ function App() {
           </Route>
           <ProtectedRoute
             path="/"
-            component={MainContainer}
+            component={Content}
             authorized={authorized}
           />
         </Switch>
