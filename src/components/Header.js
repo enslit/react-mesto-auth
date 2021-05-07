@@ -1,62 +1,54 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import { bool, func, object, string } from 'prop-types';
+import { bool, func, string, object } from 'prop-types';
 import logo from '../assets/images/logo.svg';
 import menuIcon from '../assets/icons/menu.svg';
 import closeIcon from '../assets/icons/close_icon.svg';
-import spinner from '../assets/icons/spinner.svg';
 
-UserInfo.propTypes = {
-  user: object,
+Menu.propTypes = {
+  user: object.isRequired,
+  logout: func.isRequired,
+  setOpenMenu: func.isRequired,
   openMenu: bool,
-  setOpenMenu: func,
 };
 
-HeaderLink.propTypes = {
-  path: string,
+AuthLink.propTypes = {
+  path: string.isRequired,
 };
 
-function UserInfo({ openMenu, setOpenMenu }) {
-  const history = useHistory();
-  const { setIsloggedIn, currentUser, setCurrentUser } = useContext(
-    CurrentUserContext
-  );
-
-  const logout = () => {
-    localStorage.removeItem('jwt');
+function Menu({ user, logout, setOpenMenu, openMenu = false }) {
+  const handleClickLogout = () => {
     setOpenMenu(false);
-    setIsloggedIn(false);
-    setCurrentUser({
-      _id: null,
-      email: '',
-      name: 'Загрузка...',
-      about: '',
-      avatar: spinner,
-    });
-    history.push('/sign-in');
+    logout();
   };
+
+  const handleClickMenu = () => {
+    setOpenMenu(!openMenu);
+  };
+
+  const buttonIcon = openMenu ? closeIcon : menuIcon;
 
   return (
     <>
       <div className={`header__menu ${openMenu ? 'header__menu_visible' : ''}`}>
-        <span className="header__email">{currentUser.email}</span>
-        <button onClick={logout} className="link header__link">
+        <span className="header__email">{user.email}</span>
+        <button onClick={handleClickLogout} className="link header__link">
           Выйти
         </button>
       </div>
       <button
-        onClick={() => setOpenMenu(!openMenu)}
+        onClick={handleClickMenu}
         type="button"
         aria-label="Меню"
         className="btn btn_type_menu"
-        style={{ backgroundImage: `url(${openMenu ? closeIcon : menuIcon}` }}
+        style={{ backgroundImage: `url(${buttonIcon})` }}
       />
     </>
   );
 }
 
-function HeaderLink({ path }) {
+function AuthLink({ path }) {
   const isLoginPage = path === '/sign-in';
 
   return (
@@ -71,7 +63,7 @@ function HeaderLink({ path }) {
 
 function Header() {
   const [openMenu, setOpenMenu] = useState(false);
-  const { isLoggedIn } = useContext(CurrentUserContext);
+  const { authorized, currentUser, onSignOut } = useContext(CurrentUserContext);
   const { pathname } = useLocation();
 
   return (
@@ -81,10 +73,15 @@ function Header() {
       <a href="/" className="logo" target="_self">
         <img src={logo} alt="Mesto Russia" className="logo__img" />
       </a>
-      {isLoggedIn ? (
-        <UserInfo openMenu={openMenu} setOpenMenu={setOpenMenu} />
+      {authorized ? (
+        <Menu
+          user={currentUser}
+          logout={onSignOut}
+          setOpenMenu={setOpenMenu}
+          openMenu={openMenu}
+        />
       ) : (
-        <HeaderLink path={pathname} />
+        <AuthLink path={pathname} />
       )}
     </header>
   );

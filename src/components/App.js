@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import Header from './Header';
@@ -7,22 +7,23 @@ import MainContainer from './MainContainer';
 import Register from './Register';
 import ProtectedRoute from '../hoc/ProtectedRoute';
 import Loader from './Loader';
-import PopupRegisterInfo from './PopupRegisterInfo';
+import InfoTooltip from './InfoTooltip';
 import { auth } from '../utils/api';
 import { logError } from '../utils/utils';
+import spinner from '../assets/icons/spinner.svg';
 
 function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState(
     useContext(CurrentUserContext)
   );
-  const [showRegisterInfo, setShowRegisterInfo] = useState(false);
+  const [showInfoTooltip, setShowInfoTooltip] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [authStatus, setAuthStatus] = useState({ status: false, message: '' });
-  const [isLoggedIn, setIsloggedIn] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
   const [appReady, setAppReady] = useState(false);
 
-  const handleRegisterSubmit = ({ email, password }) => {
+  const onSignUp = ({ email, password }) => {
     setFetching(true);
     auth
       .register(email, password)
@@ -40,7 +41,7 @@ function App() {
         }
 
         localStorage.setItem('jwt', token);
-        setIsloggedIn(true);
+        setAuthorized(true);
         history.push('/');
         setAuthStatus({
           status: true,
@@ -56,12 +57,12 @@ function App() {
         logError(error);
       })
       .finally(() => {
-        setShowRegisterInfo(true);
+        setShowInfoTooltip(true);
         setFetching(false);
       });
   };
 
-  const handleLoginSubmit = ({ email, password }) => {
+  const onSignIn = ({ email, password }) => {
     setFetching(true);
     auth
       .auth(email, password)
@@ -73,14 +74,17 @@ function App() {
         localStorage.setItem('jwt', token);
         return auth.checkToken(token);
       })
-      .then(changeAuthStatus)
+      .then((data) => {
+        authorize(data);
+        history.push('/');
+      })
       .catch((error) => {
         setAuthStatus({
           status: false,
           message:
             error.toString() || 'Что-то пошло не так! Попробуйте ещё раз.',
         });
-        setShowRegisterInfo(true);
+        setShowInfoTooltip(true);
         logError(error);
       })
       .finally(() => {
@@ -88,31 +92,54 @@ function App() {
       });
   };
 
+  const onSignOut = () => {
+    localStorage.removeItem('jwt');
+    setAuthorized(false);
+    setCurrentUser({
+      _id: null,
+      email: null,
+      name: 'Загрузка...',
+      about: null,
+      avatar: spinner,
+    });
+    history.push('/sign-in');
+  };
+
   const handleClosePopup = () => {
-    setShowRegisterInfo(false);
+    setShowInfoTooltip(false);
   };
 
-  const changeAuthStatus = ({ data }) => {
-    const { email } = data;
-    setCurrentUser({ ...currentUser, email });
-    setIsloggedIn(true);
-    history.push('/');
-  };
+  // Авторизовать пользователя в приложении
+  const authorize = useCallback(
+    ({ data }) => {
+      const { email } = data;
+      setCurrentUser({ ...currentUser, email });
+      setAuthorized(true);
+    },
+    [currentUser, setCurrentUser, setAuthorized]
+  );
 
+  // Проверим JWT в LS. Если есть, пробуем авторизовать
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
+    if (!appReady) {
+      const jwt = localStorage.getItem('jwt');
 
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then(changeAuthStatus)
-        .catch(logError)
-        .finally(() => setAppReady(true));
-    } else {
-      setAppReady(true);
+      if (jwt) {
+        auth
+          .checkToken(jwt)
+          .then((data) => {
+            authorize(data);
+            history.push('/');
+          })
+          .catch(logError)
+          .finally(() => setAppReady(true));
+      } else {
+        setAppReady(true);
+      }
     }
-  }, []);
+  }, [appReady, setAppReady, authorize, history]);
 
+  // Ждем проверки JWT, чтобы понять куда выполнить редирект
   if (!appReady) {
     return (
       <div className="page page_loading">
@@ -123,25 +150,30 @@ function App() {
 
   return (
     <CurrentUserContext.Provider
-      value={{ currentUser, setCurrentUser, isLoggedIn, setIsloggedIn }}
+      value={{
+        currentUser,
+        setCurrentUser,
+        authorized,
+        onSignOut,
+      }}
     >
       <div className="page">
         <Header />
         <Switch>
           <Route path="/sign-in">
-            <Login onSubmit={handleLoginSubmit} fetching={fetching} />
+            <Login onSubmit={onSignIn} fetching={fetching} />
           </Route>
           <Route path="/sign-up">
-            <Register onSubmit={handleRegisterSubmit} fetching={fetching} />
+            <Register onSubmit={onSignUp} fetching={fetching} />
           </Route>
           <ProtectedRoute
             path="/"
             component={MainContainer}
-            isloggedIn={isLoggedIn}
+            authorized={authorized}
           />
         </Switch>
-        <PopupRegisterInfo
-          open={showRegisterInfo}
+        <InfoTooltip
+          open={showInfoTooltip}
           title={authStatus.message}
           success={authStatus.status}
           onClose={handleClosePopup}

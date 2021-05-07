@@ -4,14 +4,14 @@ import { func, bool, string } from 'prop-types';
 
 ProtectedRoute.propTypes = {
   component: func,
-  isloggedIn: bool,
+  authorized: bool,
   path: string,
 };
 
-function ProtectedRoute({ component: Component, isloggedIn, path, ...props }) {
+function ProtectedRoute({ component: Component, authorized, path, ...props }) {
   return (
     <Route path={path}>
-      {!isloggedIn ? <Redirect to="/sign-in" /> : <Component {...props} />}
+      {!authorized ? <Redirect to="/sign-in" /> : <Component {...props} />}
     </Route>
   );
 }

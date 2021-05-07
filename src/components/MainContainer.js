@@ -122,8 +122,6 @@ function MainContainer() {
 
   useEffect(() => {
     setLoading(true);
-    console.log(currentUser);
-
     Promise.all([api.getUserInfo(), api.getCardList()])
       .then(([userData, cardList]) => {
         setCurrentUser({

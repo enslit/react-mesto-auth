@@ -3,14 +3,14 @@ import { bool, func, string } from 'prop-types';
 import successIcon from '../assets/icons/success-icon.svg';
 import failIcon from '../assets/icons/fail-icon.svg';
 
-PopupRegisterInfo.propTypes = {
+InfoTooltip.propTypes = {
   open: bool,
   onClose: func,
   success: bool,
   title: string,
 };
 
-function PopupRegisterInfo({ open, onClose, success, title }) {
+function InfoTooltip({ open, onClose, success, title }) {
   return (
     <div className={`popup ${open ? 'popup_opened' : ''}`}>
       <div className="popup__container">
@@ -33,4 +33,4 @@ function PopupRegisterInfo({ open, onClose, success, title }) {
   );
 }
 
-export default PopupRegisterInfo;
+export default InfoTooltip;
