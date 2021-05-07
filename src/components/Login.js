@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { func, bool } from 'prop-types';
 import FormInput from './FormInput';
-import './styles/auth.css';
 import Loader from './Loader';
 
 Login.propTypes = {

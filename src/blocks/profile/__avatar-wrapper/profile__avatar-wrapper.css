@@ -5,7 +5,7 @@
 }
 
 .profile__avatar-wrapper::after {
-    content: url("../../../assets/icons/pencil.svg");
+    content: url("../../../images/pencil.svg");
     position: absolute;
     left: 0;
     top: 0;

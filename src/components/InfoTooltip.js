@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, func, string } from 'prop-types';
-import successIcon from '../assets/icons/success-icon.svg';
-import failIcon from '../assets/icons/fail-icon.svg';
+import successIcon from '../images/success-icon.svg';
+import failIcon from '../images/fail-icon.svg';
 
 InfoTooltip.propTypes = {
   open: bool,

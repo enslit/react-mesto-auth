@@ -10,7 +10,7 @@ import Loader from './Loader';
 import InfoTooltip from './InfoTooltip';
 import { auth } from '../utils/api';
 import { logError } from '../utils/utils';
-import spinner from '../assets/icons/spinner.svg';
+import spinner from '../images/spinner.svg';
 
 function App() {
   const history = useHistory();

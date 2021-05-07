@@ -9,7 +9,6 @@ import EditProfilePopup from './EditProfilePopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeleteCardPopup from './ConfirmDeleteCardPopup';
 import EditAvatarPopup from './EditAvatarPopup';
-import './styles/main.css';
 
 function Content() {
   const [loading, setLoading] = useState(true);

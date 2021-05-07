@@ -1,7 +1,7 @@
 .btn_type_close {
     height: 40px;
     width: 40px;
-    background-image: url(../../../assets/icons/plus.svg);
+    background-image: url(../../../images/plus.svg);
     transform: rotate(45deg);
     border: none;
     background-size: contain;

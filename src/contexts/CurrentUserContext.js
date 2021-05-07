@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import spinner from '../assets/icons/spinner.svg';
+import spinner from '../images/spinner.svg';
 
 const CurrentUserContext = createContext({
   _id: null,

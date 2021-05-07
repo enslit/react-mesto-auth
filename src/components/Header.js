@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import { bool, func, string, object } from 'prop-types';
-import logo from '../assets/images/logo.svg';
-import menuIcon from '../assets/icons/menu.svg';
-import closeIcon from '../assets/icons/close_icon.svg';
+import logo from '../images/logo.svg';
+import menuIcon from '../images/menu.svg';
+import closeIcon from '../images/close_icon.svg';
 
 Menu.propTypes = {
   user: object.isRequired,

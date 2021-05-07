@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import FormInput from './FormInput';
 import { Link } from 'react-router-dom';
-import './styles/auth.css';
 import { bool, func } from 'prop-types';
 import Loader from './Loader';
 
