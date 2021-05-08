@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import FormInput from './FormInput';
+import FormInput from './Form/FormInput';
 import { func, bool } from 'prop-types';
 
 EditProfilePopup.propTypes = {

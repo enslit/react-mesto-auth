@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
-import FormInput from './FormInput';
+import FormInput from './Form/FormInput';
 import { func, bool } from 'prop-types';
 
 AddPlacePopup.propTypes = {

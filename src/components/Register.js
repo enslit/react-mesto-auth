@@ -1,9 +1,9 @@
 import React from 'react';
-import FormInput from './FormInput';
+import FormInput from './Form/FormInput';
 import { Link } from 'react-router-dom';
 import { bool, func } from 'prop-types';
-import SubmitButton from './SubmitButton';
-import Form from './Form';
+import SubmitButton from './Form/SubmitButton';
+import Form from './Form/Form';
 
 Register.propTypes = {
   onSubmit: func,

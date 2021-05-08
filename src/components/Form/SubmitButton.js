@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from './Loader';
+import Loader from '../Loader';
 import { bool, oneOf, string } from 'prop-types';
 
 SubmitButton.propTypes = {

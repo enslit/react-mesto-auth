@@ -1,8 +1,8 @@
 import React from 'react';
 import { func, bool } from 'prop-types';
-import FormInput from './FormInput';
-import Form from './Form';
-import SubmitButton from './SubmitButton';
+import FormInput from './Form/FormInput';
+import Form from './Form/Form';
+import SubmitButton from './Form/SubmitButton';
 
 Login.propTypes = {
   onSubmit: func,
