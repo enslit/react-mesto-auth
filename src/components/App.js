@@ -18,13 +18,11 @@ function App() {
     useContext(CurrentUserContext)
   );
   const [showInfoTooltip, setShowInfoTooltip] = useState(false);
-  const [fetching, setFetching] = useState(false);
   const [authStatus, setAuthStatus] = useState({ status: false, message: '' });
   const [authorized, setAuthorized] = useState(false);
   const [appReady, setAppReady] = useState(false);
 
-  const onSignUp = ({ email, password }) => {
-    setFetching(true);
+  const onSignUp = ({ email, password }, setSubmitting) => {
     auth
       .register(email, password)
       .then(({ data, error }) => {
@@ -58,12 +56,11 @@ function App() {
       })
       .finally(() => {
         setShowInfoTooltip(true);
-        setFetching(false);
+        setSubmitting(false);
       });
   };
 
-  const onSignIn = ({ email, password }) => {
-    setFetching(true);
+  const onSignIn = ({ email, password }, setSubmitting) => {
     auth
       .auth(email, password)
       .then(({ token, message }) => {
@@ -88,7 +85,7 @@ function App() {
         logError(error);
       })
       .finally(() => {
-        setFetching(false);
+        setSubmitting(false);
       });
   };
 
@@ -161,10 +158,10 @@ function App() {
         <Header />
         <Switch>
           <Route path="/sign-in">
-            <Login onSubmit={onSignIn} fetching={fetching} />
+            <Login onSubmit={onSignIn} />
           </Route>
           <Route path="/sign-up">
-            <Register onSubmit={onSignUp} fetching={fetching} />
+            <Register onSubmit={onSignUp} />
           </Route>
           <ProtectedRoute
             path="/"
