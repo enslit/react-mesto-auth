@@ -7,7 +7,7 @@ ImagePopup.propTypes = {
     createdAt: string,
     likes: arrayOf(
       shape({
-        bout: string,
+        about: string,
         avatar: string,
         cohort: string,
         name: string,

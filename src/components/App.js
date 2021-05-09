@@ -1,7 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
-import CurrentUserContext from '../contexts/CurrentUserContext';
-import Header from './Header';
+import CurrentUserContext, {
+  INITIAL_USER_STATE,
+} from '../contexts/CurrentUserContext';
+import Header from './Header/Header';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from '../hoc/ProtectedRoute';
@@ -9,7 +11,6 @@ import Loader from './Loader';
 import InfoTooltip from './InfoTooltip';
 import { api, auth } from '../utils/api';
 import { logError } from '../utils/utils';
-import spinner from '../images/spinner.svg';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -39,14 +40,9 @@ function App() {
   const onSignUp = ({ email, password }, setSubmitting) => {
     auth
       .register(email, password)
-      .then(({ data, error }) => {
-        if (error) {
-          return Promise.reject(error);
-        }
-
-        setCurrentUser({ ...currentUser, email: data.email, _id: data._id });
-        return auth.auth(email, password);
-      })
+      .then(({ error }) =>
+        error ? Promise.reject(error) : auth.auth(email, password)
+      )
       .then(({ token, error }) => {
         if (error) {
           return Promise.reject(error);
@@ -83,10 +79,7 @@ function App() {
         }
 
         localStorage.setItem('jwt', token);
-        return auth.checkToken(token);
-      })
-      .then((data) => {
-        authorize(data);
+        authorize(email);
         history.push('/');
       })
       .catch((error) => {
@@ -106,13 +99,7 @@ function App() {
   const onSignOut = () => {
     localStorage.removeItem('jwt');
     setAuthorized(false);
-    setCurrentUser({
-      _id: null,
-      email: null,
-      name: 'Загрузка...',
-      about: null,
-      avatar: spinner,
-    });
+    setCurrentUser(INITIAL_USER_STATE);
     history.push('/sign-in');
   };
 
@@ -217,8 +204,7 @@ function App() {
 
   // Авторизовать пользователя в приложении
   const authorize = useCallback(
-    ({ data }) => {
-      const { email } = data;
+    (email) => {
       setCurrentUser({ ...currentUser, email });
       setAuthorized(true);
     },
@@ -233,8 +219,8 @@ function App() {
       if (jwt) {
         auth
           .checkToken(jwt)
-          .then((data) => {
-            authorize(data);
+          .then(({ data }) => {
+            authorize(data.email);
             history.push('/');
           })
           .catch(logError)
@@ -278,20 +264,20 @@ function App() {
         currentUser,
         setCurrentUser,
         authorized,
-        onSignOut,
       }}
     >
       <div className="page">
-        <Header />
+        <Header onSignOut={onSignOut} />
         <Switch>
           <Route path="/sign-in">
-            <Login onSubmit={onSignIn} />
+            <Login onLogin={onSignIn} />
           </Route>
           <Route path="/sign-up">
-            <Register onSubmit={onSignUp} />
+            <Register onSignUp={onSignUp} />
           </Route>
           <ProtectedRoute
             path="/"
+            exact
             authorized={authorized}
             component={Main}
             cards={cards}

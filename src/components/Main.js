@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import Card from './Card';
+import Card from './Card/Card';
 import Loader from './Loader';
 import { arrayOf, shape, func, bool, string } from 'prop-types';
 

@@ -5,11 +5,11 @@ import Form from './Form/Form';
 import SubmitButton from './Form/SubmitButton';
 
 Login.propTypes = {
-  onSubmit: func,
+  onLogin: func,
   fetching: bool,
 };
 
-function Login({ onSubmit }) {
+function Login({ onLogin }) {
   return (
     <main className="content">
       <Form
@@ -19,7 +19,7 @@ function Login({ onSubmit }) {
           email: '',
           password: '',
         }}
-        onSubmit={onSubmit}
+        onSubmit={onLogin}
       >
         {({ form, state, handleInput }) => (
           <>

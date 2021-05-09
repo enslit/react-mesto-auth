@@ -6,11 +6,11 @@ import SubmitButton from './Form/SubmitButton';
 import Form from './Form/Form';
 
 Register.propTypes = {
-  onSubmit: func,
+  onSignUp: func,
   fetching: bool,
 };
 
-function Register({ onSubmit }) {
+function Register({ onSignUp }) {
   return (
     <main className="content">
       <Form
@@ -20,7 +20,7 @@ function Register({ onSubmit }) {
           email: '',
           password: '',
         }}
-        onSubmit={onSubmit}
+        onSubmit={onSignUp}
       >
         {({ form, state, handleInput }) => (
           <>

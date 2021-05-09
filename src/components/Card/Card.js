@@ -1,17 +1,9 @@
 import React, { useContext, useState } from 'react';
-import CurrentUserContext from '../contexts/CurrentUserContext';
-import Loader from './Loader';
-import { string, number, func, arrayOf, bool, shape } from 'prop-types';
-
-DeleteButton.propTypes = {
-  onClickDelete: func.isRequired,
-};
-
-LikeButton.propTypes = {
-  isLiked: bool,
-  count: number,
-  onClickLike: func.isRequired,
-};
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import DeleteButton from './DeleteButton';
+import LikeButton from './LikeButton';
+import Loader from '../Loader';
+import { string, func, arrayOf, shape } from 'prop-types';
 
 Card.propTypes = {
   card: shape({
@@ -40,33 +32,6 @@ Card.propTypes = {
   onCardLike: func.isRequired,
   onCardDelete: func.isRequired,
 };
-
-function DeleteButton({ onClickDelete }) {
-  return (
-    <button
-      type="button"
-      aria-label="Удалить"
-      className="card__delete btn btn_type_delete"
-      onClick={onClickDelete}
-    />
-  );
-}
-
-function LikeButton({ onClickLike, isLiked = false, count = 0 }) {
-  const classes = `btn btn_type_like ${isLiked && 'btn_type_like-active'}`;
-
-  return (
-    <>
-      <button
-        type="button"
-        aria-label="Нравится"
-        className={classes}
-        onClick={onClickLike}
-      />
-      <span className="card__like-cnt">{count}</span>
-    </>
-  );
-}
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const [isLikeFetching, setIsLikeFetching] = useState(false);
