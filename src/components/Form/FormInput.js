@@ -3,7 +3,7 @@ import { func, string } from 'prop-types';
 
 FormInput.propTypes = {
   onChange: func.isRequired,
-  value: string.isRequired,
+  value: string,
 };
 
 function FormInput({ onChange, value, ...props }) {
