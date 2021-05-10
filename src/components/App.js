@@ -40,21 +40,16 @@ function App() {
   const onSignUp = ({ email, password }, setSubmitting) => {
     auth
       .register(email, password)
-      .then(({ error }) =>
-        error ? Promise.reject(error) : auth.auth(email, password)
-      )
-      .then(({ token, error }) => {
-        if (error) {
+      .then(({ message }) => {
+        if (message) {
+          const error = new Error(message);
           return Promise.reject(error);
         }
-
-        localStorage.setItem('jwt', token);
-        setAuthorized(true);
-        history.push('/');
         setAuthStatus({
           status: true,
           message: 'Вы успешно зарегистрировались!',
         });
+        history.push('/sign-in');
       })
       .catch((error) => {
         setAuthStatus({
