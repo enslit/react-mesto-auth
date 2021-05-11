@@ -78,3 +78,7 @@
 @import "./blocks/form/__error/form__error.css";
 @import "./blocks/form/__link/form__link.css";
 @import "./blocks/form/__actions/form__actions.css";
+
+@import "./blocks/page-404/page-404.css";
+@import "./blocks/page-404/__title/page-404__title.css";
+@import "./blocks/page-404/__text/page-404__text.css";

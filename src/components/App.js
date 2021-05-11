@@ -18,6 +18,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeleteCardPopup from './ConfirmDeleteCardPopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import Main from './Main';
+import Page404 from './Page404';
 
 function App() {
   const history = useHistory();
@@ -284,6 +285,9 @@ function App() {
             onCardClick={handleCardClick}
             loading={loading}
           />
+          <Route path="*">
+            <Page404 />
+          </Route>
         </Switch>
         <Footer />
         <InfoTooltip
